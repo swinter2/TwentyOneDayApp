@@ -1,0 +1,73 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3/border-radius";
+@import "susy";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+@function pxtoem($pxs, $basepxs) {
+    @return $pxs/$basepxs + 0em;
+}
+
+$total-columns: 12;
+$column-width: 60px;
+$gutter-width: 20px;
+$grid-padding: 10px;
+$container-width: 960px;
+$container-style: magic; // static, fluid
+
+$font: "Open Sans", sans-serif;
+$fontsize: 16px;
+$lineheight: 18px;
+
+$gray: #404040;
+
+.container {
+    @include container;
+}
+
+body {
+    font-family: $font;
+    font-size: $fontsize;
+    line-height: $lineheight;
+    background-color: white;
+    color: $gray;
+
+    h1 {
+        font-size: 2.6em;
+        line-height: 1.6em;
+    }
+
+    .bucket {
+        @include span-columns(2, 12);
+
+        &:last-of-type {
+            @include span-columns(2 omega, 12);
+        }
+
+        .button {
+            @include border-radius(0.8em);
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+            display: block;
+            margin: 0 0 1em;
+            color: white;
+
+            &.checked {
+                content: "&#x2713;";
+            }
+
+            &.red { background-color: red; }
+            &.green { background-color: green; }
+            &.purple { background-color: purple; }
+            &.yellow { background-color: yellow; }
+            &.blue { background-color: blue; }
+            &.orange { background-color: orange; }
+        }
+    }
+}
+

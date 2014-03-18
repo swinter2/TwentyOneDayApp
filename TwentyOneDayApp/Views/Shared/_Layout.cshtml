@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="twdApp">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/stylesheets/print.css" rel="stylesheet" media="print" />
+    <link href="~/Content/stylesheets/screen.css" rel="stylesheet" media="screen,projection" />
+</head>
+    <body>
+        <div class="container">
+            @RenderBody()
+        </div>
+        
+        <script src="~/Scripts/jquery-2.1.0.min.js"></script>
+        <script src="~/Scripts/angular.min.js"></script>
+        <script src="~/Scripts/twdApp/app.js"></script>
+        @RenderSection("bottomScripts", false)
+    </body>
+</html>

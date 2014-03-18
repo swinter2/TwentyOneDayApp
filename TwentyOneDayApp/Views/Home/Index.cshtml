@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Twenty One Day Helper";
+}
+
+<div id="home" ng-controller="Home" ng-cloak>
+    
+    <h1>Today is {{ today }}.</h1>
+    
+    <div class="bucket">
+        <span class="button green {{ row.checked ? 'checked': '' }}" ng-repeat="row in greens" ng-click="pressed()"></span>
+    </div>
+    <div class="bucket">
+        <span class="button purple {{ row.checked ? 'checked': '' }}" ng-repeat="row in purples" ng-click="pressed()"></span>
+    </div>
+    <div class="bucket">
+        <span class="button red {{ row.checked ? 'checked': '' }}" ng-repeat="row in reds" ng-click="pressed()"></span>
+    </div>
+    <div class="bucket">
+        <span class="button yellow {{ row.checked ? 'checked': '' }}" ng-repeat="row in yellows" ng-click="pressed()"></span>
+    </div>
+    <div class="bucket">
+        <span class="button blue {{ row.checked ? 'checked': '' }}" ng-repeat="row in blues" ng-click="pressed()"></span>
+    </div>
+    <div class="bucket">
+        <span class="button orange {{ row.checked ? 'checked': '' }}" ng-repeat="row in oranges" ng-click="pressed()"></span>
+    </div>
+
+</div>
+
+@section bottomScripts
+{
+    <script src="~/Scripts/twdApp/homeController.js"></script>
+}
