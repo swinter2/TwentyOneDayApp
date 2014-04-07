@@ -14,9 +14,15 @@ namespace TwentyOneDayApp
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Collection Detail",
+                url: "{controller}/{action}/{year}/{month}/{day}",
+                defaults: new { controller = "Collection", action = "Detail" },
+                constraints: new { year= @"\d{4}", month= @"\d{1,2}", day = @"\d{1,2}" }
+            );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Collection", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

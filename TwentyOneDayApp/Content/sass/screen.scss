@@ -24,6 +24,7 @@ $fontsize: 16px;
 $lineheight: 18px;
 
 $gray: #404040;
+$blue: blue;
 
 .container {
     @include container;
@@ -39,6 +40,42 @@ body {
     h1 {
         font-size: 2.6em;
         line-height: 1.6em;
+    }
+
+    a, a:link, .link {
+        font-family: $font;
+        font-size: $fontsize;
+        line-height: $lineheight;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        border: none;
+        color: $blue;
+        background-color: transparent;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    header {
+        .logo {
+            @include span-columns(8, 12);
+        }
+        .login {
+            @include span-columns(4 omega, 12);
+
+            a, .link {
+                display: inline-block;
+                margin-right: 0.4em;
+            }
+        }
+    }
+
+    .main-content {
+        @include span-columns(12 omega, 12);
+    }
+
+    footer {
+        @include span-columns(12 omega, 12);
     }
 
     .bucket {

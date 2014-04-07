@@ -1,0 +1,27 @@
+﻿@model TwentyOneDayApp.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>
+            Log In
+        </legend>
+        @Html.ValidationSummary()
+        <p>
+            @Html.LabelFor(m => m.Username)
+            @Html.TextBoxFor(m => m.Username)
+            @Html.ValidationMessageFor(m => m.Username)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </p>
+    </fieldset>
+    <p>
+        <input type="submit" value="Log In"/>
+    </p>
+}

@@ -1,9 +1,19 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using TwentyOneDayApp.Models
+@model User
+@{
     ViewBag.Title = "Twenty One Day Helper";
 }
 
-<div id="home" ng-controller="Home" ng-cloak>
+<div class="collections">
+    <ul>
+    @foreach (var coll in Model.ContainerCollections)
+    {
+        <li>@Html.ActionLink(coll.Date.ToShortDateString(), "Detail", "Collection", new {year = coll.Date.Year, month=coll.Date.Month, day=coll.Date.Day}, null)</li>
+    }
+    </ul>
+</div>
+
+@*<div id="home" ng-controller="Home" ng-cloak>
     
     <h1>Today is {{ today }}.</h1>
     
@@ -27,8 +37,8 @@
     </div>
 
 </div>
-
+*@
 @section bottomScripts
 {
-    <script src="~/Scripts/twdApp/homeController.js"></script>
+    @*<script src="~/Scripts/twdApp/homeController.js"></script>*@
 }

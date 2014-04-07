@@ -1,5 +1,9 @@
-﻿@{
+﻿@using TwentyOneDayApp.Models
+@{
     Layout = null;
+}
+@{
+    var user = ViewBag.user as User;
 }
 <!DOCTYPE html>
 <html ng-app="twdApp">
@@ -12,7 +16,36 @@
 </head>
     <body>
         <div class="container">
-            @RenderBody()
+            <header>
+                <div class="logo">
+                    <h1>Twenty One Day Helper</h1>
+                </div>
+                <div class="login">
+                    @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Home", "Index", "Collection")
+                        @Html.ActionLink("Log In", "Login", "Account")
+                        @Html.ActionLink("Register", "Register", "Account")
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+                        {
+                            <p>Welcome, @user.Username</p>
+                            @Html.ActionLink("Home", "Index", "Collection")
+                            <input class="link" type="submit" value="Log Out"/>
+                        }
+                    }
+                </div>
+            </header>
+            
+            <div class="main-content">
+                @RenderBody()
+            </div>
+            
+            <footer>
+                <p>&copy; @DateTime.UtcNow.Year Sam Winter</p>
+            </footer>
         </div>
         
         <script src="~/Scripts/jquery-2.1.0.min.js"></script>

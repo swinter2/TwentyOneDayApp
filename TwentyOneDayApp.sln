@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwentyOneDayApp", "TwentyOneDayApp\TwentyOneDayApp.csproj", "{C366FAC2-17F7-4939-B20C-3C5988B080E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwentyOneDayApp.Test", "TwentyOneDayApp.Test\TwentyOneDayApp.Test.csproj", "{2021F21F-E0E8-4AE3-9F82-9109BA17338E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{C366FAC2-17F7-4939-B20C-3C5988B080E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C366FAC2-17F7-4939-B20C-3C5988B080E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C366FAC2-17F7-4939-B20C-3C5988B080E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2021F21F-E0E8-4AE3-9F82-9109BA17338E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2021F21F-E0E8-4AE3-9F82-9109BA17338E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2021F21F-E0E8-4AE3-9F82-9109BA17338E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2021F21F-E0E8-4AE3-9F82-9109BA17338E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

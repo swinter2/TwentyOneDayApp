@@ -1,0 +1,15 @@
+﻿@model TwentyOneDayApp.Models.ContainerCollection 
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>@Model.Date.ToShortDateString()</h2>
+
+<ul>
+    @foreach (var container in Model.Containers)
+    {
+        <li>@container.ContainerType.ToString() Checked: @container.Checked
+            <p>@Html.Raw(container.Description)</p>
+        </li>
+    }
+</ul>
