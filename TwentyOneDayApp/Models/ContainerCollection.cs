@@ -51,6 +51,14 @@ namespace TwentyOneDayApp.Models
                     // orange
                     new Container { Checked = false, ContainerType = ContainerType.Orange },
 
+                    // teaspoons
+                    new Container() { Checked = false, ContainerType = ContainerType.Teaspoon },
+                    new Container() { Checked = false, ContainerType = ContainerType.Teaspoon },
+                    new Container() { Checked = false, ContainerType = ContainerType.Teaspoon },
+                    new Container() { Checked = false, ContainerType = ContainerType.Teaspoon },
+                    new Container() { Checked = false, ContainerType = ContainerType.Teaspoon },
+                    new Container() { Checked = false, ContainerType = ContainerType.Teaspoon },
+
                 };
             return cc;
         }

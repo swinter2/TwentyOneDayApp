@@ -14,7 +14,8 @@ namespace TwentyOneDayApp.Models
         Red,
         Yellow,
         Blue,
-        Orange
+        Orange,
+        Teaspoon
     }
 
     public class Container
