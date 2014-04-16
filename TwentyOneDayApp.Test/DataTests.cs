@@ -16,9 +16,28 @@ namespace TwentyOneDayApp.Test
         private MongoDatabase _db;
         private MongoCollection<User> _usersCollection;
 
+        public DataTests()
+        {
+            _client = new MongoClient(_connString);
+            _server = _client.GetServer();
+            _db = _server.GetDatabase("TwentyOneDayApp");
+            _usersCollection = _db.GetCollection<User>("Users");
+        }
+
         public MongoCollection<User> UsersCollection
         {
             get { return _usersCollection; }
+        }
+
+        [TestMethod]
+        public void SetPassword()
+        {
+            var user = UsersCollection.FindOne(Query<User>.EQ(f => f.Username, "swinter"));
+            if (user != null)
+            {
+                user.Password = "sam";
+                UsersCollection.Save(user);
+            }
         }
 
         [TestMethod]

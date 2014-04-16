@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace TwentyOneDayApp.Models
 {
     public class User
     {
-        [BsonId]
+        public long Id { get; set; }
+        [MaxLength(50)]
         public string Username { get; set; }
-        public string Email { get; set; }
+        [MaxLength(100)]
         public string Password { get; set; }
+        [MaxLength(100)]
+        public string FirstName { get; set; }
+        [MaxLength(100)]
+        public string LastName { get; set; }
+        [MaxLength(100)]
+        public string Email { get; set; }
 
         public List<ContainerCollection> ContainerCollections { get; set; }
 
