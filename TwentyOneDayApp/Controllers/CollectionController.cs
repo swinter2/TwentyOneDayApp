@@ -19,6 +19,17 @@ namespace TwentyOneDayApp.Controllers
 
 
         [Authorize]
+        public ActionResult Today()
+        {
+            var now = DateTime.Now;
+            var today = Context.ContainerCollections.FirstOrDefault(
+                    f => f.Date.Year == now.Year && f.Date.Month == now.Month && f.Date.Day == now.Day) 
+                ?? new ContainerCollection();
+
+            return View("Detail", today);
+        }
+
+        [Authorize]
         public ActionResult Detail(int year, int month, int day)
         {
             try

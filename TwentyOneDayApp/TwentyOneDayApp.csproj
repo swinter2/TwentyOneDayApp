@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Models\Container.cs" />
     <Compile Include="Models\ContainerCollection.cs" />
+    <Compile Include="Models\ModelContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

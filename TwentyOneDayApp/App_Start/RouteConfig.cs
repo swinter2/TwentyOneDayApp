@@ -20,6 +20,11 @@ namespace TwentyOneDayApp
                 constraints: new { year= @"\d{4}", month= @"\d{1,2}", day = @"\d{1,2}" }
             );
             routes.MapRoute(
+                name: "Today's Collection",
+                url: "today",
+                defaults: new { controller = "Collection", action = "Today" }
+            );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Collection", action = "Index", id = UrlParameter.Optional }

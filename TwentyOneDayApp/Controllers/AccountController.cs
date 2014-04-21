@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using MongoDB.Driver.Builders;
 using TwentyOneDayApp.Models;
 using TwentyOneDayApp.ViewModels;
 
@@ -24,12 +23,7 @@ namespace TwentyOneDayApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = UsersCollection.FindOne(
-                Query.And(
-                    Query<User>.EQ(f => f.Username, model.Username),
-                    Query<User>.EQ(f => f.Password, model.Password)
-                )
-            );
+            var user = Context.Users.FirstOrDefault(f => f.Username == model.Username && f.Password == model.Password);
 
             if (user == null)
             {
@@ -63,7 +57,7 @@ namespace TwentyOneDayApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = UsersCollection.FindOne(Query<User>.EQ(f => f.Username, model.Username));
+            var user = Context.Users.FirstOrDefault(f=> f.Username == model.Username);
             if (user != null)
             {
                 ModelState.AddModelError(string.Empty, "Username is already taken.  Please choose another.");
@@ -81,7 +75,7 @@ namespace TwentyOneDayApp.Controllers
                             ContainerCollection.CreateDefault()
                         }
                 };
-            UsersCollection.Insert(user);
+            Context.Users.Add(user);
 
             FormsAuthentication.SetAuthCookie(user.Username, true);
             return Redirect(FormsAuthentication.DefaultUrl);
