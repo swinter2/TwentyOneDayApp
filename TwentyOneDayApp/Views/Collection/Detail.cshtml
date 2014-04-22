@@ -2,12 +2,18 @@
 @using TwentyOneDayApp.Models
 @model TwentyOneDayApp.Models.ContainerCollection 
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = Model.Date.ToShortDateString();
 }
 <div ng-controller="ContainerController">
-    <h2>@Model.Date.ToShortDateString()</h2>
+    <h2>@ViewBag.Title</h2>
+    <a href="#">+ Add Container</a>
+    
+    <ul id="containers">
+        <li ng-repeat="key in Object.keys(containers)">
+            {{ key }}
+        </li>
+    </ul>
 
-    <div ng-repeat="type in types">{{ type }}</div>
 </div>
 
 @section bottomScripts
@@ -16,11 +22,13 @@
         twdApp.controller("ContainerController",
             function ($scope) {
                 $scope.types = @Html.Raw(JsonConvert.SerializeObject(new List<string> { ContainerType.Blue.ToString(), ContainerType.Green.ToString(), ContainerType.Orange.ToString(), ContainerType.Purple.ToString(), ContainerType.Red.ToString(), ContainerType.Yellow.ToString(), ContainerType.Teaspoon.ToString() }));
-                $scope.containers = @Html.Raw(JsonConvert.SerializeObject(Model.Containers.ToLookup(c => c.ContainerType.ToString(), c=> c))); 
+                $scope.containers = @Html.Raw(JsonConvert.SerializeObject(Model.Containers.ToDictionary(c => c.ContainerType.ToString(), c=> c)));
 
+                $scope.update = function() {
+
+                };
 
             }
         );
-        
     </script>
 }

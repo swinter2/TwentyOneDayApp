@@ -4,25 +4,77 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace TwentyOneDayApp.Models
 {
     [Table("Collection")]
     public class ContainerCollection
     {
+        private XDocument _xDoc;
+        private List<Container> _containers;
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         public DateTime Date { get; set; }
-        public List<Container> Containers { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string ContainerData { get; set; }
+
+        [NotMapped]
+        public XDocument ContainerXml
+        {
+            get
+            {
+                if (_xDoc == null)
+                {
+                    try
+                    {
+                        _xDoc = XDocument.Parse(ContainerData);
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+                return _xDoc;
+            }
+            set { _xDoc = value; }
+        }
+
+        [NotMapped]
+        public List<Container> Containers 
+        {
+            get
+            {
+                if (_containers == null)
+                {
+                    _containers = ContainerXml.XPathSelectElements("/Container")
+                        .Select(e => e.ToContainerObj())
+                        .ToList();
+                }
+                return _containers;
+            }
+            set { _containers = value; }
+        }
 
         public long UserId { get; set; }
         public virtual User User { get; set; }
 
+        /// <summary>
+        /// Call to update the underlying XML structure based on the current state of the list of containers.
+        /// </summary>
+        public void UpdateXml()
+        {
+            ContainerXml = Containers.ToXDocument();
+            ContainerData = ContainerXml.ToString();
+        }
+
         public ContainerCollection()
         {
-            Containers = new List<Container>();
         }
 
         public static ContainerCollection CreateDefault(DateTime? date = null)

@@ -31,9 +31,16 @@ namespace TwentyOneDayApp.Models
 
     public static class ContainerExtensions
     {
+        public static XDocument ToXDocument(this IEnumerable<Container> containers)
+        {
+            var x = new XDocument();
+            x.Add(containers.Select(c => c.ToXElement()));
+            return x;
+        }
+
         public static XElement ToXElement(this Container container)
         {
-            var x = new XElement("Container", 
+            var x = new XElement("Container",
                 new XElement("Type") { Value = container.ContainerType.ToString() },
                 new XElement("Checked") { Value = container.Checked.ToString() },
                 new XElement("Description") { Value = container.Description }
