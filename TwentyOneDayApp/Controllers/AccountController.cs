@@ -76,6 +76,7 @@ namespace TwentyOneDayApp.Controllers
                         }
                 };
             Context.Users.Add(user);
+            Context.SaveChanges();
 
             FormsAuthentication.SetAuthCookie(user.Username, true);
             return Redirect(FormsAuthentication.DefaultUrl);

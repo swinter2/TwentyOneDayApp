@@ -27,5 +27,9 @@ namespace TwentyOneDayApp.Models
 
         public virtual List<ContainerCollection> ContainerCollections { get; set; }
 
+        public User()
+        {
+        }
+
     }
 }

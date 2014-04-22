@@ -20,6 +20,11 @@ namespace TwentyOneDayApp.Models
         public long UserId { get; set; }
         public virtual User User { get; set; }
 
+        public ContainerCollection()
+        {
+            Containers = new List<Container>();
+        }
+
         public static ContainerCollection CreateDefault(DateTime? date = null)
         {
             var cc = new ContainerCollection();
