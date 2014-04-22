@@ -1,15 +1,26 @@
-﻿@model TwentyOneDayApp.Models.ContainerCollection 
+﻿@using Newtonsoft.Json
+@using TwentyOneDayApp.Models
+@model TwentyOneDayApp.Models.ContainerCollection 
 @{
     ViewBag.Title = "Detail";
 }
+<div ng-controller="ContainerController">
+    <h2>@Model.Date.ToShortDateString()</h2>
 
-<h2>@Model.Date.ToShortDateString()</h2>
+    <div ng-repeat="type in types">{{ type }}</div>
+</div>
 
-<ul>
-    @foreach (var container in Model.Containers)
-    {
-        <li>@container.ContainerType.ToString() Checked: @container.Checked
-            <p>@Html.Raw(container.Description)</p>
-        </li>
-    }
-</ul>
+@section bottomScripts
+{
+    <script>
+        twdApp.controller("ContainerController",
+            function ($scope) {
+                $scope.types = @Html.Raw(JsonConvert.SerializeObject(new List<string> { ContainerType.Blue.ToString(), ContainerType.Green.ToString(), ContainerType.Orange.ToString(), ContainerType.Purple.ToString(), ContainerType.Red.ToString(), ContainerType.Yellow.ToString(), ContainerType.Teaspoon.ToString() }));
+                $scope.containers = @Html.Raw(JsonConvert.SerializeObject(Model.Containers.ToLookup(c => c.ContainerType.ToString(), c=> c))); 
+
+
+            }
+        );
+        
+    </script>
+}
