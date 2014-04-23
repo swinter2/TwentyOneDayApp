@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace TwentyOneDayApp.Models
 {
@@ -33,9 +34,9 @@ namespace TwentyOneDayApp.Models
     {
         public static XDocument ToXDocument(this IEnumerable<Container> containers)
         {
-            var x = new XDocument();
-            x.Add(containers.Select(c => c.ToXElement()));
-            return x;
+            var xDoc = XDocument.Parse("<root/>");
+            xDoc.Root.Add(containers.Select(c => c.ToXElement()));
+            return xDoc;
         }
 
         public static XElement ToXElement(this Container container)
@@ -43,7 +44,7 @@ namespace TwentyOneDayApp.Models
             var x = new XElement("Container",
                 new XElement("Type") { Value = container.ContainerType.ToString() },
                 new XElement("Checked") { Value = container.Checked.ToString() },
-                new XElement("Description") { Value = container.Description }
+                new XElement("Description") { Value = container.Description ?? string.Empty }
             );
             return x;
         }
@@ -82,5 +83,34 @@ namespace TwentyOneDayApp.Models
 
             return container;
         }
+
+        public static string ToJson(this IEnumerable<Container> containers)
+        {
+            return JsonConvert.SerializeObject(containers
+                                                   .GroupBy(c => c.ContainerType)
+                                                   .ToDictionary(c => c.Key.ToString(),
+                                                                 c => c.Select(f => new
+                                                                 {
+                                                                     ContainerType = f.ContainerType.ToString(),
+                                                                     f.Checked,
+                                                                     f.Description
+                                                                 })));
+        }
+
+        public static string JsonContainerTypes()
+        {
+            return
+                JsonConvert.SerializeObject(new List<string>
+                    {
+                        ContainerType.Blue.ToString(),
+                        ContainerType.Green.ToString(),
+                        ContainerType.Orange.ToString(),
+                        ContainerType.Purple.ToString(),
+                        ContainerType.Red.ToString(),
+                        ContainerType.Yellow.ToString(),
+                        ContainerType.Teaspoon.ToString()
+                    });
+        }
+
     }
 }

@@ -28,6 +28,7 @@ namespace TwentyOneDayApp.Controllers
             if (today == null)
             {
                 today = ContainerCollection.CreateDefault(now);
+                today.UpdateXml();
                 today.User = CurrentUser;
                 Context.ContainerCollections.Add(today);
                 Context.SaveChanges();

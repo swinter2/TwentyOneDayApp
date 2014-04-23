@@ -21,8 +21,8 @@
     <script>
         twdApp.controller("ContainerController",
             function ($scope) {
-                $scope.types = @Html.Raw(JsonConvert.SerializeObject(new List<string> { ContainerType.Blue.ToString(), ContainerType.Green.ToString(), ContainerType.Orange.ToString(), ContainerType.Purple.ToString(), ContainerType.Red.ToString(), ContainerType.Yellow.ToString(), ContainerType.Teaspoon.ToString() }));
-                $scope.containers = @Html.Raw(JsonConvert.SerializeObject(Model.Containers.ToDictionary(c => c.ContainerType.ToString(), c=> c)));
+                $scope.types = @Html.Raw(ContainerExtensions.JsonContainerTypes());
+                $scope.containers = @Html.Raw(Model.Containers.ToJson());
 
                 $scope.update = function() {
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Newtonsoft.Json;
 
 namespace TwentyOneDayApp.Models
 {
@@ -33,6 +34,10 @@ namespace TwentyOneDayApp.Models
                 {
                     try
                     {
+                        if (string.IsNullOrWhiteSpace(ContainerData))
+                        {
+                            ContainerData = "<root />";
+                        }
                         _xDoc = XDocument.Parse(ContainerData);
                     }
                     catch
@@ -52,7 +57,7 @@ namespace TwentyOneDayApp.Models
             {
                 if (_containers == null)
                 {
-                    _containers = ContainerXml.XPathSelectElements("/Container")
+                    _containers = ContainerXml.XPathSelectElements("/root/Container")
                         .Select(e => e.ToContainerObj())
                         .ToList();
                 }
