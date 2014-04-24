@@ -4,31 +4,89 @@
 @{
     ViewBag.Title = Model.Date.ToShortDateString();
 }
-<div ng-controller="ContainerController">
+<div id="ContainerController" ng-controller="ContainerController">
     <h2>@ViewBag.Title</h2>
-    <a href="#">+ Add Container</a>
+    <p ng-show="message" ng-bind="message"></p>
     
-    <ul id="containers">
-        <li ng-repeat="key in Object.keys(containers)">
-            {{ key }}
-        </li>
-    </ul>
-
+    <div id="containers">
+        <div ng-repeat="t in types" class="collection">
+            <span ng-repeat="c in collection(t)" class="kontainer {{ c.ContainerType }}">
+                <input type="checkbox" ng-checked="c.Checked"/>
+            </span>
+            <a class="add" href="#" ng-click="add(t)">+ Add</a>
+        </div>
+    </div>
+    <a href="#" id="save">Save</a>
+    <a href="@Url.Action("Index")">Cancel</a>
 </div>
 
 @section bottomScripts
 {
     <script>
         twdApp.controller("ContainerController",
-            function ($scope) {
+            function($scope) {
+                $scope.message = "";
+                $scope.id = @Model.Id;
                 $scope.types = @Html.Raw(ContainerExtensions.JsonContainerTypes());
                 $scope.containers = @Html.Raw(Model.Containers.ToJson());
 
-                $scope.update = function() {
-
+                $scope.collection = function(type) {
+                    return $scope.containers[type];
                 };
 
+                $scope.add = function(type) {
+                    $scope.containers[type].push({
+                        ContainerType: type,
+                        Checked: false,
+                        Description: ""
+                    });
+                };
+
+                $scope.save = function() {
+
+                };
             }
         );
+
+        jQuery(function($) {
+            var $ContainerController = $("#ContainerController");
+
+            function ngScope() {
+                return angular.element($ContainerController[0]).scope();
+            }
+
+            $("#save").on('click', function(e) {
+                e.preventDefault();
+                debugger;
+                var $scope = ngScope();
+                var containers = [];
+                for (var type in $scope.containers) {
+                    for (var i in $scope.containers[type]) {
+                        var c = $scope.containers[type][i];
+                        containers.push(c);
+                    }
+                }
+                var data = {
+                    Id: $scope.id,
+                    Containers: containers
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Save")",
+                    data: data,
+                    dataType: "json"
+                }).done(function(data) {
+                    ngScope().$apply(function($s) {
+                        if (data.error) {
+                            $s.message = data.error;
+                        } else {
+                            $s.message = "Success!";
+                        }
+                    });
+                }).fail(function() {
+
+                });
+            });
+        });
     </script>
 }

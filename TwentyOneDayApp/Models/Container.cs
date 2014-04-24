@@ -28,6 +28,32 @@ namespace TwentyOneDayApp.Models
         public bool Checked { get; set; }
         public string Description { get; set; }
 
+        //[NotMapped]
+        //public int Order
+        //{
+        //    get
+        //    {
+        //        switch (ContainerType)
+        //        {
+        //            case ContainerType.Green:
+        //                return 1;
+        //            case ContainerType.Purple:
+        //                return 2;
+        //            case ContainerType.Red:
+        //                return 3;
+        //            case ContainerType.Yellow:
+        //                return 4;
+        //            case ContainerType.Blue:
+        //                return 5;
+        //            case ContainerType.Orange:
+        //                return 6;
+        //            case ContainerType.Teaspoon:
+        //                default:
+        //                return 7;
+        //        }
+        //    }
+        //}
+
     }
 
     public static class ContainerExtensions
@@ -102,12 +128,12 @@ namespace TwentyOneDayApp.Models
             return
                 JsonConvert.SerializeObject(new List<string>
                     {
-                        ContainerType.Blue.ToString(),
                         ContainerType.Green.ToString(),
-                        ContainerType.Orange.ToString(),
                         ContainerType.Purple.ToString(),
                         ContainerType.Red.ToString(),
                         ContainerType.Yellow.ToString(),
+                        ContainerType.Blue.ToString(),
+                        ContainerType.Orange.ToString(),
                         ContainerType.Teaspoon.ToString()
                     });
         }

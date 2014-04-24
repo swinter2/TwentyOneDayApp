@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TwentyOneDayApp.Models;
+using TwentyOneDayApp.ViewModels;
 
 namespace TwentyOneDayApp.Controllers
 {
@@ -57,5 +58,18 @@ namespace TwentyOneDayApp.Controllers
             return View(collection);
         }
 
+        [Authorize]
+        [HttpPost]
+        public JsonResult Save(SaveCollectionViewModel model)
+        {
+            var collection = Context.ContainerCollections.FirstOrDefault(f => f.Id == model.Id);
+            if (collection == null)
+                return Json(new { error = "Container not found." });
+
+            collection.Containers = model.Containers;
+            collection.UpdateXml();
+            Context.SaveChanges();
+            return Json(new {success = true});
+        }
     }
 }
