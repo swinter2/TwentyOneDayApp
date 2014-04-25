@@ -21,7 +21,7 @@ namespace TwentyOneDayApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            ModelBinders.Binders.Add(typeof(SaveCollectionViewModel), new SaveCollectionViewModelBinder());
+            //ModelBinders.Binders.Add(typeof(SaveCollectionViewModel), new SaveCollectionViewModelBinder());
         }
     }
 }
